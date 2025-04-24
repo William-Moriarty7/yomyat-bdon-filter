@@ -1,0 +1,503 @@
+:root {
+  --primary-color: #1e90ff;
+  --bg-light: #f9f9f9;
+  --text-dark: #222;
+  --text-light: #fff;
+}
+html{
+  scroll-behavior: smooth;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Tajawal', sans-serif;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #000000; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+body {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  overflow: hidden;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+body.loaded {
+  overflow: auto;
+}
+
+/* circle Animation */
+.circle-div {
+  position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
+    z-index: 9999;
+  pointer-events: none;
+  clip-path: circle(100% at 50% 50%);
+  animation: revealCircle 2s ease-in-out forwards;
+}
+
+@keyframes revealCircle {
+  0% {
+    clip-path: circle(100% at 50% 50%);
+  }
+  100% {
+    clip-path: circle(0% at 50% 50%);
+  }
+}
+
+
+/* Navbar */
+nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 1rem 2rem;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+nav .logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+nav ul li a:hover {
+  color: var(--primary-color);
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+header {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+header .overlay {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  z-index: 1;
+  animation: subtlePulse 8s ease-in-out infinite;
+  cursor: pointer;
+  max-width: 90%;
+}
+
+header .overlay:hover {
+  animation-name: none;
+}
+
+header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1.3rem;
+  opacity: 0.9;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes subtlePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* Background Image */
+.bg-image {
+  background-image: url('../image/background.jpg');
+  filter: blur(3px);
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+/* Container */
+.container {
+  max-width: 1000px;
+  margin: 5rem auto;
+  padding: 0 1rem;
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 2rem;
+  font-weight: 700;
+  opacity: 0;
+  animation: blob linear forwards;
+  animation-timeline: view();
+  animation-range: entry 0% cover 20%;
+}
+
+/* Episodes */
+.episodes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  animation: fadeInUp 1.5s ease-in-out;
+  
+}
+
+.episode-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  animation: blob linear forwards;
+  animation-timeline: view();
+  animation-range: entry 0% cover 15%;
+  animation-delay: calc(var(--index) * 0.1s);
+  opacity: 0;
+}
+
+@keyframes blob {
+  from{
+    opacity: 0;
+    transform: translateY(40px) scale(0.1);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+.episode-card:hover {
+  transform: translateY(-50px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.episode-content {
+  padding: 1rem;
+  text-align: right;
+  direction: rtl;
+}
+
+.episode-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.episode-date {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.8rem;
+}
+
+.episode-excerpt {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 0.8rem;
+}
+
+.read-more {
+  color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+    transform: translateX(-5px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* About Section */
+#about {
+  background: white;
+  padding: 3rem 1rem;
+  text-align: center;
+  animation: riseAndSet 2s ease-out 0s 1 normal none;
+  animation-timeline: view();
+  opacity: 0;
+  animation-range: entry 0% cover 20%;
+}
+
+@keyframes riseAndSet {
+	0% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  75% {
+    transform: translateY(-10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+#about h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+#about p {
+  max-width: 700px;
+  margin: auto;
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+
+.back-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.4rem;
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: 0.2s;
+  border: 2px solid transparent;
+}
+
+.back-button:hover {
+  background: transparent;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+  color: #999;
+  background-color: #f1f1f1;
+  animation: fadeInUp 1.5s ease-in-out;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode nav {
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode nav ul li a {
+  color: #ccc;
+}
+
+body.dark-mode .logo {
+  color: var(--primary-color);
+}
+
+body.dark-mode .episode-card {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .episode-card:hover {
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .episode-title {
+  color: #90c7ff;
+}
+
+body.dark-mode .episode-date {
+  color: #aaa;
+}
+
+body.dark-mode .episode-excerpt {
+  color: #ddd;
+}
+
+body.dark-mode #about {
+  background-color: #1e1e1e;
+  color: #ddd;
+}
+
+body.dark-mode #about p {
+  color: #bbb;
+}
+
+body.dark-mode footer {
+  background-color: #121212;
+  color: #bbb;
+}
+
+body.dark-mode .circle-div {
+  background-color: #121212;
+}
+/*Responsive Design */
+  @media (max-width: 768px) {
+    nav {
+      padding: 0.8rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  
+    nav ul {
+      gap: 1rem;
+    }
+  
+    header {
+      height: 85vh;
+    }
+  
+    header h1 {
+      font-size: 2.2rem;
+    }
+  
+    header p {
+      font-size: 1.1rem;
+    }
+  
+    .container {
+      margin: 3rem auto;
+    }
+  
+    .episodes-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.8rem;
+    }
+  
+    header p {
+      font-size: 1rem;
+    }
+  
+    .container h2, #about h2 {
+      font-size: 1.6rem;
+    }
+  
+    .episode-content {
+      padding: 1rem;
+    }
+  }
