@@ -323,7 +323,7 @@ header p {
   text-align: center;
   animation: riseAndSet 2s ease-out 0s 1 normal none;
   animation-timeline: view();
-  opacity: 0;
+  opacity: 1;
   animation-range: entry 0% cover 20%;
 }
 
